@@ -1,10 +1,21 @@
 <script setup>
+import { ref, toRefs } from "vue"
 import { useUserStore } from "../../stores/useUser"
 
-const useUser = useUserStore()
-
-if (!useUser.user) {
+const { user, registerUser } = toRefs(useUserStore())
+if (!user.value) {
   console.log("Please log in first!!")
+}
+
+const username = ref("")
+const email = ref("")
+const password = ref("")
+
+const register = async () => {
+  await registerUser.value(username, email, password)
+  if (user.value) {
+    console.log(useUser)
+  }
 }
 </script>
 
@@ -13,17 +24,17 @@ if (!useUser.user) {
     <div class="main-block">
       <span>
         <p>USERNAME:</p>
-        <input type="text" placeholder="Username" />
+        <input type="text" v-model="username" placeholder="Username" />
       </span>
       <span>
         <p>EMAIL:</p>
-        <input type="email" placeholder="Email" />
+        <input type="email" v-model="email" placeholder="Email" />
       </span>
       <span>
         <p>PASSWORD:</p>
-        <input type="text" placeholder="Password" />
+        <input type="text" v-model="password" placeholder="Password" />
       </span>
-      <button>REGISTER</button>
+      <button @click="register">REGISTER</button>
     </div>
   </section>
 </template>
