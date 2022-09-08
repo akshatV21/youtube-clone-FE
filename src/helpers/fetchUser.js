@@ -1,3 +1,5 @@
+import CONFIG from "../config"
+
 const fetchUser = async token => {
   const request = await fetch(`${CONFIG.API_URL}/user`, {
     method: "GET",
@@ -11,7 +13,7 @@ const fetchUser = async token => {
     console.log("Failed to fetch user!")
     return
   }
-  console.log(response.user)
+
   return response.user
 }
 

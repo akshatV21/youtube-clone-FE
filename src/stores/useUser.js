@@ -4,10 +4,7 @@ import CONFIG from "../config"
 import fetchUser from "../helpers/fetchUser"
 
 export const useUserStore = defineStore("user", () => {
-  const token = localStorage.getItem("token")
   const user = ref("")
-
-  console.log(user)
 
   // register user
   const registerUser = async (username, email, password) => {
@@ -47,14 +44,14 @@ export const useUserStore = defineStore("user", () => {
       return
     }
 
-    const getUser = async token => {
-      const fetchedUser = await fetchUser(token)
-      user.value = fetchedUser
-    }
-
     user.value = response.user
     localStorage.setItem("token", response.user.token)
   }
 
-  return { user, registerUser, loginUser }
+  const getUser = async token => {
+    const fetchedUser = await fetchUser(token)
+    user.value = fetchedUser
+  }
+
+  return { user, registerUser, loginUser, getUser }
 })
