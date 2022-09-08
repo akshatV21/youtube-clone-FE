@@ -5,7 +5,7 @@ import { useUserStore } from "../../stores/useUser"
 
 const router = useRouter()
 
-const { user, registerUser, getUser } = toRefs(useUserStore())
+const { user, registerUser, getUser, registerErr } = toRefs(useUserStore())
 
 // validations
 if (!user.value) {
@@ -41,6 +41,7 @@ const register = async () => {
 <template>
   <section class="bg">
     <div class="main-block">
+      <h1 style="text-align: center">{{ registerErr }}</h1>
       <span>
         <p>USERNAME:</p>
         <input type="text" v-model="username" placeholder="Username" />

@@ -18,6 +18,7 @@ import { RouterView } from "vue-router"
   --dark-blue-2: rgb(6, 10, 41);
   --input-color: rgb(42, 45, 55);
   --white: rgb(229, 231, 255);
+  --white-o-6: rgb(229, 231, 255, 0.6);
   --white-o-2: rgba(229, 231, 255, 0.2);
   --blue: rgb(11, 65, 214);
 }

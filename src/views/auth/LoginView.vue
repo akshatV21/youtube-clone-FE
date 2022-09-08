@@ -5,7 +5,7 @@ import { useUserStore } from "../../stores/useUser"
 
 const router = useRouter()
 
-const { user, loginUser } = toRefs(useUserStore())
+const { user, loginUser, loginErr } = toRefs(useUserStore())
 
 const input = ref("")
 const password = ref("")
@@ -25,6 +25,7 @@ const login = async () => {
 <template>
   <section class="bg">
     <div class="main-block">
+      <h1 style="text-align: center">{{ loginErr }}</h1>
       <span>
         <p>INPUT:</p>
         <input type="text" v-model="input" placeholder="Username or Email" />

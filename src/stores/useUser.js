@@ -5,6 +5,8 @@ import fetchUser from "../helpers/fetchUser"
 
 export const useUserStore = defineStore("user", () => {
   const user = ref("")
+  const loginErr = ref("")
+  const registerErr = ref("")
 
   // register user
   const registerUser = async (username, email, password) => {
@@ -19,7 +21,8 @@ export const useUserStore = defineStore("user", () => {
     const response = await request.json()
 
     if (!response.success) {
-      console.log("Failed to register user!")
+      console.log(response.message)
+      registerErr.value = response.message
       return
     }
 
@@ -40,7 +43,8 @@ export const useUserStore = defineStore("user", () => {
     const response = await request.json()
 
     if (!response.success) {
-      console.log("Failed to login user!")
+      console.log(response.message)
+      loginErr.value = response.message
       return
     }
 
@@ -53,5 +57,5 @@ export const useUserStore = defineStore("user", () => {
     user.value = fetchedUser
   }
 
-  return { user, registerUser, loginUser, getUser }
+  return { user, registerUser, loginUser, getUser, loginErr, registerErr }
 })
