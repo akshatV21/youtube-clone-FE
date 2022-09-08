@@ -8,8 +8,7 @@ const router = useRouter()
 const { user, loginUser } = toRefs(useUserStore())
 
 if (user.value) {
-  console.log("Please log in first!!")
-  console.log(user.value._id)
+  router.push("/")
 }
 
 const input = ref("")
@@ -22,6 +21,8 @@ const login = async () => {
     alert("Error loggin in!")
     return
   }
+
+  router.push("/")
 }
 </script>
 
