@@ -66,7 +66,7 @@ fetchVideos()
 .bg {
   width: 100%;
   border: 2px solid var(--white-o-2);
-  padding: 81.5px 0 0 249px;
+  padding: 80px 0 0 249px;
 }
 
 .nav-bar {
