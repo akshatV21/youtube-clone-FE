@@ -1,6 +1,6 @@
 <script setup>
 import { toRefs } from "vue"
-import { RouterLink } from "vue-router"
+import { RouterLink, RouterView } from "vue-router"
 import { useRouter } from "vue-router"
 import { useUserStore } from "../../stores/useUser"
 
@@ -38,6 +38,7 @@ if (!user.value) {
         <RouterLink to="/">Playlists</RouterLink>
       </div>
     </div>
+    <RouterView></RouterView>
   </section>
 </template>
 
@@ -60,6 +61,7 @@ if (!user.value) {
 
 .user {
   width: 100%;
+  height: 80px;
   padding: 20px;
   display: flex;
   align-items: center;
@@ -73,6 +75,7 @@ if (!user.value) {
   height: 40px;
   border-radius: 50%;
   background-color: var(--input-color);
+  border: 1px solid var(--white-o-2);
 }
 
 .user span {

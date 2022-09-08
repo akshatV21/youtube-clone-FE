@@ -7,10 +7,6 @@ const router = useRouter()
 
 const { user, loginUser } = toRefs(useUserStore())
 
-if (user.value) {
-  router.push("/")
-}
-
 const input = ref("")
 const password = ref("")
 
