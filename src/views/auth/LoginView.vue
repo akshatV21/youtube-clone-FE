@@ -5,24 +5,22 @@ import { useUserStore } from "../../stores/useUser"
 
 const router = useRouter()
 
-const { user, registerUser } = toRefs(useUserStore())
+const { user, loginUser } = toRefs(useUserStore())
 if (user.value) {
   console.log("Please log in first!!")
+  console.log(user.value._id)
 }
 
-const username = ref("")
-const email = ref("")
+const input = ref("")
 const password = ref("")
 
-const register = async () => {
-  await registerUser.value(username.value, email.value, password.value)
+const login = async () => {
+  await loginUser.value(input.value, password.value)
 
   if (!user.value) {
-    alert("Error registering the user!!")
+    alert("Error loggin in!")
     return
   }
-
-  router.push("/login")
 }
 </script>
 
@@ -30,18 +28,14 @@ const register = async () => {
   <section class="bg">
     <div class="main-block">
       <span>
-        <p>USERNAME:</p>
-        <input type="text" v-model="username" placeholder="Username" />
-      </span>
-      <span>
-        <p>EMAIL:</p>
-        <input type="email" v-model="email" placeholder="Email" />
+        <p>INPUT:</p>
+        <input type="text" v-model="input" placeholder="Username or Email" />
       </span>
       <span>
         <p>PASSWORD:</p>
         <input type="text" v-model="password" placeholder="Password" />
       </span>
-      <button @click="register">REGISTER</button>
+      <button @click="login">LOGIN</button>
     </div>
   </section>
 </template>
