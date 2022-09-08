@@ -1,18 +1,13 @@
 import { ref } from "vue"
 import { defineStore } from "pinia"
 import CONFIG from "../config"
+import fetchUser from "../helpers/fetchUser"
 
 export const useUserStore = defineStore("user", () => {
   const token = localStorage.getItem("token")
   const user = ref("")
 
-  if (token) {
-    ;(async () => {
-      user.value = await fetchUser(token)
-    })()
-  } else {
-    user.value = null
-  }
+  console.log(user)
 
   // register user
   const registerUser = async (username, email, password) => {
@@ -32,6 +27,7 @@ export const useUserStore = defineStore("user", () => {
     }
 
     user.value = response.user
+    localStorage.setItem("token", response.user.token)
   }
 
   // login user
@@ -49,6 +45,11 @@ export const useUserStore = defineStore("user", () => {
     if (!response.success) {
       console.log("Failed to login user!")
       return
+    }
+
+    const getUser = async token => {
+      const fetchedUser = await fetchUser(token)
+      user.value = fetchedUser
     }
 
     user.value = response.user

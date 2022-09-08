@@ -6,6 +6,7 @@ import { useUserStore } from "../../stores/useUser"
 const router = useRouter()
 
 const { user, loginUser } = toRefs(useUserStore())
+
 if (user.value) {
   console.log("Please log in first!!")
   console.log(user.value._id)

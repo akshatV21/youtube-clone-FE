@@ -2,13 +2,24 @@
 import { ref, toRefs } from "vue"
 import { useRouter } from "vue-router"
 import { useUserStore } from "../../stores/useUser"
+import fetchUser from "../../helpers/fetchUser"
 
 const router = useRouter()
 
 const { user, registerUser } = toRefs(useUserStore())
-if (user.value) {
-  console.log("Please log in first!!")
-}
+
+console.log(user.value)
+// validations
+// if (user.value) {
+//   router.push("/")
+// }
+
+// if (!user.value) {
+//   const token = localStorage.getItem("token")
+//   if (token) {
+//     useRouter.value = router.push("/")
+//   }
+// }
 
 const username = ref("")
 const email = ref("")
