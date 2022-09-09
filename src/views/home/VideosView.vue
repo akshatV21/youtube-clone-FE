@@ -39,6 +39,10 @@ const fetchVideos = async () => {
   videos.value = response.videos
 }
 
+const goToWatch = videoId => {
+  router.push(`/watch?v=${videoId}`)
+}
+
 fetchVideos()
 </script>
 
@@ -51,8 +55,8 @@ fetchVideos()
     </div>
     <div class="videos">
       <div class="video-block" v-for="video in videos" :key="video._id">
-        <div class="thumbnail"></div>
-        <p class="title">{{ video.title.substring(0, 40) }}...</p>
+        <div class="thumbnail" @click="goToWatch(video._id)"></div>
+        <p class="title" @click="goToWatch(video._id)">{{ video.title.substring(0, 40) }}...</p>
         <div class="low">
           <span>{{ video.views }} views</span>
           <span>{{ video.channelId.name }}</span>
