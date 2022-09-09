@@ -64,10 +64,12 @@ fetchVideo()
               <p>{{  video.channelId.subscribers.length }} subscribers</p>
             </div>
             <button :class="user.subscribed.includes(video.channelId._id) ? subscribeState = `subscribed` : subscribeState = `unsubscribed`">
-              {{ subscribeState.substring(0, subscribeState.length - 1) }}
+              {{ subscribeState === `unsubscribed` ? 'Subscribe' : 'Unsubscribe'}}
             </button>
           </div>
-          <div class="desc"></div>
+          <div class="desc">
+            {{ video.description }}
+          </div>
           <div class="comments"></div>
         </div>
       </div>
@@ -117,7 +119,7 @@ iframe {
   gap: 20px;
 }
 
-.channel{
+.channel, .desc{
   padding: 20px;
   font-size: 1.1rem;
   font-weight: 500;
