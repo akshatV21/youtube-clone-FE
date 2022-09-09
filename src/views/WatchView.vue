@@ -1,13 +1,28 @@
 <script setup>
-import { ref } from "vue"
+import { ref, toRefs } from "vue"
 import { useRoute } from "vue-router"
 import CONFIG from "../config"
 import { useUserStore } from "../stores/useUser"
+
+const { user, getUser } = toRefs(useUserStore())
+
+if (!user.value) {
+  const token = localStorage.getItem("token")
+  if (token) {
+    ;(async () => {
+      await getUser.value(token)
+      router.push("/")
+    })()
+  } else {
+    router.push("/login")
+  }
+}
 
 const route = useRoute()
 const videoId = route.query.v
 
 const video = ref({})
+const subscribeState = ref('')
 
 const fetchVideo = async () => {
   const request = await fetch(`${CONFIG.API_URL}/videos/${videoId}`, {
@@ -37,6 +52,20 @@ fetchVideo()
         <div class="info">
           <div class="top">
             <p class="title">{{ video.title }}</p>
+            <div class="stats">
+              <p>{{ video.likes }} likes</p>
+              <p>{{ video.dislikes }} dislikes</p>
+              <p>{{ video.views }} views</p>
+            </div>
+          </div>
+          <div class="channel">
+            <div class="left">
+              <p><div class="dp"></div>{{ video.channelId.name }}</p>
+              <p>{{  video.channelId.subscribers.length }} subscribers</p>
+            </div>
+            <button :class="user.subscribed.includes(video.channelId._id) ? subscribeState = `subscribed` : subscribeState = `unsubscribed`">
+              {{ subscribeState.substring(0, subscribeState.length - 1) }}
+            </button>
           </div>
           <div class="desc"></div>
           <div class="comments"></div>
@@ -69,12 +98,51 @@ iframe {
   border: 2px solid var(--white-o-2);
 }
 
-.title {
+.top {
   padding: 20px;
   font-size: 1.1rem;
   font-weight: 500;
   color: var(--white);
   border-bottom: 2px solid var(--white-o-2);
   border-top: 2px solid var(--white-o-2);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
+
+.stats {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 20px;
+}
+
+.channel{
+  padding: 20px;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--white);
+  border-bottom: 2px solid var(--white-o-2);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+button{
+  font-size: 1.1rem;
+  padding: .6em 1.4em;
+  border: 2px solid var(--white-o-2);
+  cursor: pointer;
+  color: var(--not-very-dark-blue);
+  border-radius: 4px;
+}
+
+.subscribed{
+  background-color: var(--white-o-2);
+}
+
+.unsubscribed {
+  background-color: var(--blue);
+}
+
 </style>
